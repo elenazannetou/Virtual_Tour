@@ -14,54 +14,43 @@
       font-family: system-ui, sans-serif;
       color: white;
     }
-
-    button {
+    a.button {
+      display: inline-block;
       font-size: 22px;
       padding: 16px 32px;
-      border: none;
       border-radius: 12px;
-      background: white;
-      color: black;
-      cursor: pointer;
-      transition: 0.3s;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
     }
-
-    button:hover {
-      background: #ccc;
+    a.button:active, a.button:hover {
       transform: scale(1.05);
-    }
-
-    .fade-out {
-      opacity: 0;
-      transition: opacity 0.8s ease;
+      background: #eaeaea;
     }
   </style>
 </head>
 <body>
-  <button id="enterBtn">Click to Enter</button>
+  <!-- Use a real link for maximum mobile compatibility -->
+  <a id="enterLink" class="button" href="https://cloud.chaos.com/collaboration/virtual-tour/NeEiaZ3LyBTPZbTaqtjFn7/present?n=6WqSa59A1QRHW4sVrfjBdH">
+    Tap to Enter
+  </a>
 
   <script>
-    // 👇 Your Chaos Cloud collaboration link (Enscape virtual tour)
+    // Extra fallback in case some browsers block default link behavior
     const TOUR_URL = "https://cloud.chaos.com/collaboration/virtual-tour/NeEiaZ3LyBTPZbTaqtjFn7/present?n=6WqSa59A1QRHW4sVrfjBdH";
-
-    const btn = document.getElementById("enterBtn");
-
-    btn.addEventListener("click", async () => {
-      btn.classList.add("fade-out");
+    const linkEl = document.getElementById('enterLink');
+    linkEl.addEventListener('click', function (e) {
+      // Allow default <a> behavior first; but if something prevents it, force navigate:
       setTimeout(() => {
-        window.location.href = TOUR_URL;
-      }, 500);
-
-      // Try to enter fullscreen before redirect
-      try {
-        const el = document.documentElement;
-        if (el.requestFullscreen) await el.requestFullscreen();
-        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-      } catch (err) {
-        console.log("Fullscreen request ignored:", err);
-      }
+        if (document.visibilityState === 'visible') {
+          // Still on this page → force navigation in same tab
+          window.location.assign(TOUR_URL);
+        }
+      }, 50);
     });
   </script>
 </body>
 </html>
+
 
