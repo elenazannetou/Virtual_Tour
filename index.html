@@ -2,27 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Virtual Tour — Redirecting…</title>
+  <title>Virtual Tour</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    html, body { margin:0; height:100%; display:grid; place-items:center; background:#000; color:#fff; font-family:system-ui, Arial; }
-    button { font-size:18px; padding:12px 20px; border:0; border-radius:10px; cursor:pointer; }
-    p { opacity:.8 }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #000;
+      display: grid;
+      place-items: center;
+      font-family: system-ui, sans-serif;
+      color: white;
+    }
+    button {
+      font-size: 22px;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 12px;
+      background: white;
+      color: black;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ccc;
+    }
   </style>
 </head>
 <body>
-  <div>
-    <h1 style="margin:0 0 12px">Virtual Tour</h1>
-    <p>Click to open the fullscreen presentation.</p>
-    <button id="go">Open Tour</button>
-    <p style="font-size:12px;margin-top:10px">Tip: press <strong>F11</strong> for fullscreen.</p>
-  </div>
+  <button id="enterBtn">Click to Enter</button>
+
   <script>
-    // Your Chaos /present link:
     const TOUR_URL = "https://cloud.chaos.com/collaboration/virtual-tour/NeEiaZ3LyBTPZbTaqtjFn7/present?n=6WqSa59A1QRHW4sVrfjBdH";
-    document.getElementById('go').addEventListener('click', () => {
-      // navigate in the same tab
+
+    document.getElementById("enterBtn").addEventListener("click", async () => {
+      // Open the Chaos tour in the same tab
       window.location.href = TOUR_URL;
+
+      // Try to enter fullscreen right after redirect (works on most phones and browsers)
+      try {
+        const el = document.documentElement;
+        if (el.requestFullscreen) await el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      } catch (err) {
+        console.log("Fullscreen not supported or user blocked it:", err);
+      }
     });
   </script>
 </body>
