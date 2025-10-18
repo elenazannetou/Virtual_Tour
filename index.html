@@ -2,55 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Virtual Tour</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Virtual Tour Entry</title>
   <style>
     html, body {
       margin: 0;
+      padding: 0;
       height: 100%;
-      background: #000;
-      display: grid;
-      place-items: center;
-      font-family: system-ui, sans-serif;
-      color: white;
+      width: 100%;
+      background: linear-gradient(180deg, #A8CF45 0%, #CBEA76 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+      overflow: hidden;
     }
+
+    .container {
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    h1 {
+      color: #2E4600;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+      font-size: 1.9rem;
+    }
+
     a.button {
       display: inline-block;
-      font-size: 22px;
-      padding: 16px 32px;
-      border-radius: 12px;
       background: #fff;
-      color: #000;
+      color: #2E4600;
       text-decoration: none;
-      transition: transform .2s ease, background .2s ease;
+      padding: 14px 40px;
+      border-radius: 999px;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(46, 70, 0, 0.15);
     }
-    a.button:active, a.button:hover {
+
+    a.button:hover {
       transform: scale(1.05);
-      background: #eaeaea;
+      background: #f7f7f7;
+      box-shadow: 0 6px 25px rgba(46, 70, 0, 0.25);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: rgba(46, 70, 0, 0.6);
+      font-size: 0.8rem;
     }
   </style>
 </head>
 <body>
-  <!-- Use a real link for maximum mobile compatibility -->
-  <a id="enterLink" class="button" href="https://cloud.chaos.com/collaboration/virtual-tour/NeEiaZ3LyBTPZbTaqtjFn7/present?n=6WqSa59A1QRHW4sVrfjBdH">
-    Tap to Enter
-  </a>
-
-  <script>
-    // Extra fallback in case some browsers block default link behavior
-    const TOUR_URL = "https://cloud.chaos.com/collaboration/virtual-tour/NeEiaZ3LyBTPZbTaqtjFn7/present?n=6WqSa59A1QRHW4sVrfjBdH";
-    const linkEl = document.getElementById('enterLink');
-    linkEl.addEventListener('click', function (e) {
-      // Allow default <a> behavior first; but if something prevents it, force navigate:
-      setTimeout(() => {
-        if (document.visibilityState === 'visible') {
-          // Still on this page → force navigation in same tab
-          window.location.assign(TOUR_URL);
-        }
-      }, 50);
-    });
-  </script>
+  <div class="container">
+    <h1>Virtual Tour</h1>
+    <a class="button" href="https://cloud.chaos.com/collaboration/n/NeEiaZ3LyBTPZbTaqtjFn7/present?vrt=" target="_blank" rel="noopener noreferrer">
+      Enter Tour
+    </a>
+  </div>
+  <footer>
+    © 2025 Chaos Cloud Presentation
+  </footer>
 </body>
 </html>
+
+
 
 
