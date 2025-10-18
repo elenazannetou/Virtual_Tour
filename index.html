@@ -6,38 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body, iframe { margin:0; padding:0; width:100%; height:100%; border:0; }
+    body { background:#000; }
     #gate {
       position: fixed; inset: 0;
       display: grid; place-items: center;
       font-family: system-ui, Arial, sans-serif;
-      background: #000; color: #fff;
-      text-align: center; padding: 2rem;
+      color:#fff; text-align:center; gap:16px;
+      background:#000;
     }
-    button {
-      font-size: 18px; padding: 12px 20px; border: 0; border-radius: 8px; cursor: pointer;
-    }
-    #gate.hidden { display: none; }
+    #enterBtn { font-size:18px; padding:12px 20px; border:0; border-radius:10px; cursor:pointer; }
+    #gate.hidden { display:none; }
   </style>
 </head>
 <body>
   <div id="gate">
-    <h1 style="margin:0 0 12px 0;">Virtual Tour</h1>
-    <p style="margin:0 0 20px 0;">Click the button to enter fullscreen.</p>
-    <button id="enterBtn">Enter Tour</button>
+    <h1 style="margin:0;">Virtual Tour</h1>
+    <p style="margin:0;">Click to enter fullscreen.</p>
+    <button id="enterBtn" onclick="enter()">Enter Tour</button>
+    <p style="font-size:12px; opacity:.7;">If nothing happens, press F11 once, then click the button again.</p>
   </div>
 
   <iframe id="tour" src="" allowfullscreen referrerpolicy="no-referrer"></iframe>
 
   <script>
-    // 👇 Use your /present link here (yours from earlier)
+    // 🔹 Your Chaos /present link:
     const TOUR_URL = "https://cloud.chaos.com/collaboration/virtual-tour/NeEiaZ3LyBTPZbTaqtjFn7/present?n=6WqSa59A1QRHW4sVrfjBdH";
 
     const iframe = document.getElementById('tour');
-    const gate = document.getElementById('gate');
-    const btn  = document.getElementById('enterBtn');
+    const gate   = document.getElementById('gate');
 
-    function enter() {
-      if (!iframe.src) iframe.src = TOUR_URL;
-      const el = iframe.requestFullscreen ? iframe : document.documentElement;
-      (el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen || (()=>Prom
-
+    async function enter() {
+      try {
+        // Request fullscreen on the PAGE (more reliable than on the iframe)
+        const el = document.documentElement;
+        if (el.requestFullscreen) await el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        // Load
