@@ -14,6 +14,7 @@
       font-family: system-ui, sans-serif;
       color: white;
     }
+
     button {
       font-size: 22px;
       padding: 16px 32px;
@@ -22,9 +23,17 @@
       background: white;
       color: black;
       cursor: pointer;
+      transition: 0.3s;
     }
+
     button:hover {
       background: #ccc;
+      transform: scale(1.05);
+    }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.8s ease;
     }
   </style>
 </head>
@@ -32,21 +41,31 @@
   <button id="enterBtn">Click to Enter</button>
 
   <script>
-    const TOUR_URL = "https://cloud.chaos.com/collaboration/virtual-tour/NeEiaZ3LyBTPZbTaqtjFn7/present?n=6WqSa59A1QRHW4sVrfjBdH";
+    // 👇 Your clean Chaos Cloud presentation link (no collaboration bar)
+    const TOUR_URL = "https://cloud.chaos.com/present/NeEiaZ3LyBTPZbTaqtjFn7";
 
-    document.getElementById("enterBtn").addEventListener("click", async () => {
-      // Open the Chaos tour in the same tab
-      window.location.href = TOUR_URL;
+    const btn = document.getElementById("enterBtn");
 
-      // Try to enter fullscreen right after redirect (works on most phones and browsers)
+    btn.addEventListener("click", async () => {
+      // Add fade effect
+      btn.classList.add("fade-out");
+
+      // Wait a moment before redirecting (for fade animation)
+      setTimeout(() => {
+        // Redirect to Chaos presentation
+        window.location.href = TOUR_URL;
+      }, 500);
+
+      // Attempt to trigger fullscreen before redirect (optional)
       try {
         const el = document.documentElement;
         if (el.requestFullscreen) await el.requestFullscreen();
         else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
       } catch (err) {
-        console.log("Fullscreen not supported or user blocked it:", err);
+        console.log("Fullscreen request ignored:", err);
       }
     });
   </script>
 </body>
 </html>
+
